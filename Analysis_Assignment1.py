@@ -64,7 +64,7 @@ def zp_line(sigma_p, mu_zp, sigma_zp, C, D, mu_gmv):
 slope =  slope_zp(mu_zp, sigma_zp, C, D, mu_gmv)
 
 # Define x data range for tangent line
-sigma_range = np.linspace(sigma_zp-0.01, sigma_zp+0.01, 10)
+sigma_range = np.linspace(0, sigma_zp+0.01, 10)
 tangent_zp = zp_line(sigma_range, mu_zp,sigma_zp, C, D, mu_gmv)
 
 # plot efficient frontier and individual assets
@@ -73,8 +73,9 @@ plt.scatter(np.sqrt(np.diag(dfCov.loc[:, dfCov.columns != '^DJI'])),dfMu[1:],
 plt.scatter(np.sqrt(np.diag(dfCov.loc[:, dfCov.columns == '^DJI'])),dfMu[1],
               color='green', label='Dow Jones Index')
 plt.plot(sigma_p, mu_p, color='black', label='Efficient Frontier')
-plt.legend()
+plt.scatter(0, zp_line(0, mu_zp,sigma_zp, C, D, mu_gmv), color = 'blue', label =r'$\bar{\mu_{zp}}}$' )
 plt.plot(sigma_range, tangent_zp)
+plt.legend()
 plt.xlabel(r'$\sigma_p$')
 plt.ylabel(r'$\bar{\mu_p}}$',rotation=0)
 plt.title('Efficient Frontier + Stocks in the Dow Jones Index')
